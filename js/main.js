@@ -5,7 +5,9 @@ const GRID_ATTR = {
     BORDER: .5,
     TOTAL_CELL: 15,
 };
-var key_pressed = false;
+var left_pressed = false;
+var right_pressed = false; 
+var both_pressed = false;
 const grid_cells = [];
 
 class Cell{
@@ -45,8 +47,13 @@ const CANVAS = {
 
 console.log(left_rect, top_rect);
 
-document.addEventListener("mousedown", (e) => { key_pressed = true; });
-document.addEventListener("mouseup", (e) => { key_pressed = false; });
+document.addEventListener("mousedown", (e) => { 
+    if(e.button === 0)left_pressed = true; 
+    // NOTE: solution, check if specific key pressed, to erase 
+});
+document.addEventListener("mouseup", (e) => { 
+    if(e.button === 0)left_pressed = false; 
+});
 canvas.addEventListener('mouseenter', () => { CANVAS.over_canvas = true; });
 canvas.addEventListener('mouseleave', () => { CANVAS.over_canvas = false; });
 window.addEventListener("scroll", () => {
@@ -68,7 +75,7 @@ document.addEventListener("mousemove", (e) => {
             user.curr_div.style["left"] = `${curr_pos[0]}px`;
             user.curr_div.style["top"] = `${curr_pos[1]}px`;
             user.curr_div.style["backgroundColor"] = "black"
-            if(key_pressed){
+            if(left_pressed){
                 grid_cells[grid_y][grid_x].div.style["backgroundColor"] = "black";
             }
         }
